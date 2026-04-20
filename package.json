@@ -1,0 +1,12 @@
+{
+  "name": "taskflow-tests",
+  "version": "1.0.0",
+  "scripts": {
+    "test:api": "newman run tests/postman/TaskFlow_API_Collection.json -e tests/postman/TaskFlow_Local_Environment.json",
+    "test:api:report": "newman run tests/postman/TaskFlow_API_Collection.json -e tests/postman/TaskFlow_Local_Environment.json -r htmlextra --reporter-htmlextra-export ./reports/api-test-report.html"
+  },
+  "devDependencies": {
+    "newman": "^6.0.0",
+    "newman-reporter-htmlextra": "^1.23.0"
+  }
+}
