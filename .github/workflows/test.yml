@@ -6,30 +6,17 @@ on:
   pull_request:
     branches: [ main ]
   schedule:
-    - cron: '0 2 * * *'  # Run daily at 2 AM
+    - cron: '0 2 * * *'  # Berjalan setiap hari pada jam 2 AM UTC
 
 jobs:
   backend-tests:
     runs-on: ubuntu-latest
     
-    services:
-      # Jalankan backend service
-      backend:
-        image: python:3.9-slim
-        ports:
-          - 8000:8000
-        options: >-
-          --name backend
-          --workdir /app
-          --volume ${{ github.workspace }}:/app
-        env:
-          PYTHONPATH: /app
-    
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     - name: Setup Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.9'
     
@@ -42,10 +29,10 @@ jobs:
       run: |
         cd backend
         uvicorn main:app --host 0.0.0.0 --port 8000 &
-        sleep 5  # Wait for server to start
+        sleep 5  # Menunggu server siap
     
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: '18'
     
@@ -60,7 +47,7 @@ jobs:
           --reporter-htmlextra-export reports/api-test-report.html
     
     - name: Upload API Test Report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: api-test-report
@@ -70,7 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
@@ -84,7 +71,7 @@ jobs:
         sleep 3
     
     - name: Setup Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.9'
     
@@ -102,16 +89,15 @@ jobs:
           --self-contained-html
     
     - name: Upload Selenium Test Report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: frontend-test-report
         path: reports/frontend-test-report.html
     
-    - name: Upload Screenshots (if failures)
-      uses: actions/upload-artifact@v3
+    - name: Upload Screenshots (jika gagal)
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: selenium-screenshots
         path: reports/screenshots/
-        
