@@ -1,0 +1,12 @@
+[
+  { "id": 1, "test_name": "Valid Task", "payload": { "title": "Beli Susu", "description": "Ke minimarket" }, "expected_status": 201 },
+  { "id": 2, "test_name": "Title Only", "payload": { "title": "Meeting Pagi", "description": "" }, "expected_status": 201 },
+  { "id": 3, "test_name": "Empty Title", "payload": { "title": "", "description": "Deskripsi ada" }, "expected_status": 422 },
+  { "id": 4, "test_name": "Missing Title", "payload": { "description": "Hanya deskripsi" }, "expected_status": 422 },
+  { "id": 5, "test_name": "Long Description", "payload": { "title": "Tugas", "description": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" }, "expected_status": 201 },
+  { "id": 6, "test_name": "Null Title", "payload": { "title": null, "description": "Null" }, "expected_status": 422 },
+  { "id": 7, "test_name": "Numeric Title", "payload": { "title": 12345, "description": "Angka" }, "expected_status": 422 },
+  { "id": 8, "test_name": "Special Characters", "payload": { "title": "!@#$%^", "description": "Simbol" }, "expected_status": 201 },
+  { "id": 9, "test_name": "Empty Payload", "payload": {}, "expected_status": 422 },
+  { "id": 10, "test_name": "Valid Long Title", "payload": { "title": "Judul yang sangat panjang sekali tetap valid", "description": "Tes" }, "expected_status": 201 }
+]
